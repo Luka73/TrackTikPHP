@@ -2,31 +2,35 @@
 
 include_once 'ArrayList.php';
 
-class ElectronicItem {
+abstract class ElectronicItem {
 
     protected $price;
     protected $wired;
     protected $extras;
 
-    public function __construct(){ 
-        
-    }
-
-    protected function maxExtras() {
-        return 0;
-    }
+    protected abstract function maxExtras();
 
     public function addExtra($extra) {
         if($this->extras == null) {
             $this->extras = new ArrayList(array());
         }
 
-        $size = $this->extras->getItems();
-
+        $size = count($this->extras->getItems());
         if($size < $this->maxExtras()) {
             $this->extras->addItem($extra);
         }
+    }
 
+    public function getTotalPrice() {
+        $total = $this->price;
+
+        if($this->extras != null) {
+            $items = $this->extras->getItems();
+            foreach ($items as $item) {
+                $total += $item->getPrice();
+            }
+        }
+        return $total;
     }
 
     public function getPrice() { return $this->price; } 

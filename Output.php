@@ -8,28 +8,46 @@ include_once 'Controller.php';
 
 class Output {
 
-    public function teste() {
-       echo "teste";
-       $intance1 = new Television();
-       $intance1->setPrice(1);
-       $intance2 = new Controller();
-       $intance2->setPrice(2);
-       $intance3 = new Console();
-       $intance3->setPrice(3);
-       $intance4 = new Microwave();
-       $intance4->setPrice(4);
-       
-       echo $intance1->getPrice();
-       echo $intance2->getPrice();
-       echo $intance3->getPrice();
-       echo $intance4->getPrice();
+    public function scenario1() {
+        $wiredController1 = new Controller(9.15, true);
+        $wiredController2 = new Controller(9.15, true);
 
-       $intance1->addExtra($intance2);
+        $remoteController1 = new Controller(11.89, false);
+        $remoteController2 = new Controller(11.89, false);
+
+
+        $console = new Console(89.61, true);
+        $console->addExtra($wiredController1);
+        $console->addExtra($wiredController2);
+        $console->addExtra($remoteController1);
+        $console->addExtra($remoteController2);
+
+
+        $television1 = new Television(289.55, true);
+        $television1->addExtra($remoteController1);
+        $television1->addExtra($remoteController2);
+
+        $television2 = new Television(320.45, true);
+        $television2->addExtra($wiredController1);
+
+        $microwave = new Microwave(58.25, true);
+
+        $values = array(
+            $console->getTotalPrice(), 
+            $television1->getTotalPrice(), 
+            $television2->getTotalPrice(), 
+            $microwave->getTotalPrice()
+        );
+
+        $total = array_sum($values);
+
+        echo 'TOTAL : '.$total;
+
     }
 
 }
 
 $teste = new Output();
-$teste->teste();
+$teste->scenario1();
 
 ?>
