@@ -1,6 +1,6 @@
 <?php
 
-class ArrayList {
+class ElectronicItems {
 
     private $items = array();
 
@@ -26,11 +26,11 @@ class ArrayList {
 
         foreach ($this->items as $item) {
 
-            $sorted[($item->price * 100)] = $item;
+            $sorted[($item->getPrice() * 100)] = $item;
 
         }
 
-        return ksort($sorted, SORT_NUMERIC);
+        return $sorted;
 
     }
 

@@ -32,12 +32,26 @@ class Output {
 
         $microwave = new Microwave(58.25, true);
 
-        $values = array(
+        $prices = array(
+            $console->getPrice(), 
+            $television1->getPrice(), 
+            $television2->getPrice(), 
+            $microwave->getPrice()
+        );
+
+        $totalPrices = array(
             $console->getTotalPrice(), 
             $television1->getTotalPrice(), 
             $television2->getTotalPrice(), 
             $microwave->getTotalPrice()
         );
+
+        //$join = array_merge($prices, $totalPrices);
+        //array_multisort($join, SORT_ASC, SORT_NUMERIC);
+        //var_dump($console->getSortedExtras());
+        //var_dump($join);
+
+        //echo 'TOTAL CONSOLE : '.$console->getTotalPrice();
 
         $total = array_sum($values);
 

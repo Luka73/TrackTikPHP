@@ -1,6 +1,6 @@
 <?php
 
-include_once 'ArrayList.php';
+include_once 'ElectronicItems.php';
 
 abstract class ElectronicItem {
 
@@ -12,13 +12,17 @@ abstract class ElectronicItem {
 
     public function addExtra($extra) {
         if($this->extras == null) {
-            $this->extras = new ArrayList(array());
+            $this->extras = new ElectronicItems(array());
         }
 
         $size = count($this->extras->getItems());
         if($size < $this->maxExtras()) {
             $this->extras->addItem($extra);
         }
+    }
+
+    public function getExtras() {
+        return $this->extras;
     }
 
     public function getTotalPrice() {
@@ -31,6 +35,13 @@ abstract class ElectronicItem {
             }
         }
         return $total;
+    }
+
+    public function getSortedExtras() {
+        if($this->extras != null) {
+            return $this->extras->getSortedItems();
+        }
+        return null;
     }
 
     public function getPrice() { return $this->price; } 
