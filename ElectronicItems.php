@@ -1,5 +1,8 @@
 <?php
 
+
+include_once 'ElectronicItem.php';
+
 class ElectronicItems {
 
     private $items = array();
@@ -10,7 +13,6 @@ class ElectronicItems {
 
     }
 
-
     public function addItem($item) {
         array_push($this->items, $item); 
     }
@@ -19,6 +21,14 @@ class ElectronicItems {
         return $this->items;
     }
     
+
+    public function getTotalAmount() {
+        $amount = 0;
+        foreach($this->items as $item) {
+            $amount += $item->getTotalPrice();
+        }
+        return $amount;
+    }
 
     public function getSortedItems(){
 
@@ -30,8 +40,7 @@ class ElectronicItems {
 
         }
 
-        return $sorted;
-
+        return (ksort($sorted, SORT_NUMERIC)) ? $sorted : null;
     }
 
 }

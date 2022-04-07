@@ -12,13 +12,17 @@ abstract class ElectronicItem {
 
     public function addExtra($extra) {
         if($this->extras == null) {
-            $this->extras = new ElectronicItems(array());
+            $this->extras = array();
         }
 
-        $size = count($this->extras->getItems());
+        $size = count($this->extras);
         if($size < $this->maxExtras()) {
-            $this->extras->addItem($extra);
+            array_push($this->extras, $extra); 
         }
+    }
+
+    public function countExtras() {
+        return ($this->extras != null) ? count($this->extras) : 0;
     }
 
     public function getExtras() {
@@ -27,21 +31,13 @@ abstract class ElectronicItem {
 
     public function getTotalPrice() {
         $total = $this->price;
-
         if($this->extras != null) {
-            $items = $this->extras->getItems();
+            $items = $this->extras;
             foreach ($items as $item) {
                 $total += $item->getPrice();
             }
         }
         return $total;
-    }
-
-    public function getSortedExtras() {
-        if($this->extras != null) {
-            return $this->extras->getSortedItems();
-        }
-        return null;
     }
 
     public function getPrice() { return $this->price; } 
