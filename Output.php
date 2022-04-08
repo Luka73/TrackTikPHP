@@ -10,31 +10,16 @@ include_once 'Controller.php';
 class Output {
 
     public function scenario1() {
-
         $items = new ElectronicItems($this->getEletronicItemList());
-
-        foreach($items->getItems() as $item) {
-            echo '<br>Item : '.get_class($item).' - $'.$item->getPrice();
-            if($item->getExtras() != null || $item->countExtras() > 0) {
-                foreach($item->getExtras() as $extra) {
-                    echo '<br>Extras : '.get_class($extra).' - $'.$extra->getPrice();
-                }
-            }
-            echo '<br>';
-        }
-
-        echo '<br>Total : '.$items->getTotalAmount().'<br>';
-
+        $items->showItems();
     }
 
     public function scenario2() {
         $items = new ElectronicItems($this->getEletronicItemList());
+        $type = 'Console';
+        $total = $items->getTotalAmountByType($type);
 
-        foreach($items->getItems() as $item) {
-            if(is_a($item, 'Console')) {
-                echo 'Total price for Console with extras : '.$item->getTotalPrice();
-            }
-        }
+        echo 'Total price for '.$type.' with extras : '.$total;
     }
 
     public function getEletronicItemList() {
